@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person.js';
 
+
 class App extends Component {
   //State is really important
   state = {
@@ -24,16 +25,38 @@ class App extends Component {
 			{ name: newName, age: 39}
 		]
     })
-  }
+	}
+	
+	nameChangeHandler = (event) => {
+		this.setState({
+			persons: [
+				{name: 'Alex', age: 28},
+				{name: event.target.value, age: 27},
+				{name: 'Brent', age: 38}
+			]
+		})
+	}
 
   //Always need to render HTML to the DOM
   render() {
+
+    //People like to create style in JS
+    //Inline styles are scoped to the component/module/elements
+    const style = {
+        backgroundColor : 'white',
+        font: 'inherit',
+        border: '1px solid blue',
+        padding: '8px',
+        cursor: 'pointer'
+    };
+
+
     return (
       //This is JSX not HTML.
       	<div className="App">
 			<h1>Hello I'm a React App</h1>
 			<p>This is really working!!</p>
-			<button onClick={() => this.switchNameHandler('Killer')}>Switch Name</button>
+			<button style={style} onClick={() => this.switchNameHandler('Killer')}>Switch Name</button>
 			<Person 
 				name={this.state.persons[0].name} 
 				age={this.state.persons[0].age} 
@@ -42,6 +65,7 @@ class App extends Component {
 				name={this.state.persons[1].name} 
 				age={this.state.persons[1].age}
 				click={this.switchNameHandler.bind(this, "Killer Killer")}
+				change={this.nameChangeHandler}
 			>
 				My Hobbies: Comics
 			</Person>
