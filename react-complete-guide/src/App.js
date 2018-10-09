@@ -11,7 +11,8 @@ class App extends Component {
       { name: 'Alex', age: 28},
       { name: 'Matty', age: 27},
       { name: 'Brent', age: 38}
-    ]
+    ],
+    showPersons: false
   }
 
   //Method for Switch Names
@@ -35,7 +36,12 @@ class App extends Component {
 				{name: 'Brent', age: 38}
 			]
 		})
-	}
+    }
+    
+    togglePersonsHandler = () => {
+        const doesShow = this.state.showPersons;
+        this.setState({showPersons: !doesShow});
+    }
 
   //Always need to render HTML to the DOM
   render() {
@@ -57,24 +63,27 @@ class App extends Component {
 			<h1>Hello I'm a React App</h1>
 			<p>This is really working!!</p>
 			<button style={style} onClick={this.togglePersonsHandler}>Switch Name</button>
-            <div>
-                <Person 
-                    name={this.state.persons[0].name} 
-                    age={this.state.persons[0].age} 
-                />
-                <Person 
-                    name={this.state.persons[1].name} 
-                    age={this.state.persons[1].age}
-                    click={this.switchNameHandler.bind(this, "Killer Killer")}
-                    change={this.nameChangeHandler}
-                >
-                    My Hobbies: Comics
-                </Person>
-                <Person 
-                    name={this.state.persons[2].name}
-                    age={this.state.persons[2].age}
-                />
-            </div>
+            { 
+                this.state.showPersons ? 
+                    <div >
+                        <Person 
+                            name={this.state.persons[0].name} 
+                            age={this.state.persons[0].age} 
+                        />
+                        <Person 
+                            name={this.state.persons[1].name} 
+                            age={this.state.persons[1].age}
+                            click={this.switchNameHandler.bind(this, "Killer Killer")}
+                            change={this.nameChangeHandler}
+                        >
+                            My Hobbies: Comics
+                        </Person>
+                        <Person 
+                            name={this.state.persons[2].name}
+                            age={this.state.persons[2].age}
+                        />
+                    </div> : null
+            }
       	</div>
       
     );
