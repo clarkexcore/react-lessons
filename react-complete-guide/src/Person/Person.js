@@ -1,5 +1,4 @@
 import React from 'react';
-
 import './Person.css';
 
 //props can be anything but is universally used by this

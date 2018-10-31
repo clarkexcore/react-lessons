@@ -1,6 +1,7 @@
 // Always need to import React
 import React, { Component } from 'react';
 import './App.css';
+import Radium, { StyleRoot} from 'radium';
 import Person from './Person/Person.js';
 
 
@@ -66,7 +67,8 @@ class App extends Component {
     //People like to create style in JS
     //Inline styles are scoped to the component/module/elements
     const style = {
-        backgroundColor : 'white',
+        backgroundColor : 'green',
+        color: 'white',
         font: 'inherit',
         border: '1px solid blue',
         padding: '8px',
@@ -89,6 +91,7 @@ class App extends Component {
                         change={(event) => this.nameChangeHandler(event, person.id)}
                     />
                 })}
+
                 {/* <Person 
                     name={this.state.persons[0].name} 
                     age={this.state.persons[0].age} 
@@ -107,16 +110,30 @@ class App extends Component {
                 /> */}
             </div>
         );
+        
+        style.backgroundColor = 'red';
     }
 
+    // Class list
+    const classes = [];
+    if (this.state.persons.length <= 2) {
+        classes.push('red'); //classes will be ['red'];
+    }
+    if (this.state.persons.length <= 1) {
+        classes.push('bold');
+    }
+
+
+
     return (
-      //This is JSX not HTML.
-      	<div className="App">
-			<h1>Hello I'm a React App</h1>
-			<p>This is really working!!</p>
-			<button style={style} onClick={this.togglePersonsHandler}>Switch Name</button>
+        /* //This is JSX not HTML. */
+        <div className="App">
+            <h1>Hello I'm a React App</h1>
+            <p className={classes.join(' ')}>This is really working!!</p>
+            <button style={style} onClick={this.togglePersonsHandler}>Switch Name</button>
             {persons}        
-      	</div>
+        </div>
+      
       
     );
     //return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));
